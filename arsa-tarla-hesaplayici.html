@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arsa / Tarla + Ruhsat + Görseller + İskan</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Segoe UI, system-ui, sans-serif; max-width: 980px; margin: 0 auto; padding: 20px; background: #f5f7fa; color: #222; }
+    h1 { color: #0d47a1; margin-bottom: 5px; }
+    .uyari { background: #fff8e1; border-left: 6px solid #ff8f00; padding: 14px 18px; margin: 18px 0; border-radius: 6px; font-size: 15px; }
+    .kart { background: white; border-radius: 10px; padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; }
+    input, select { width: 100%; padding: 11px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; }
+    button { background: #1976d2; color: white; border: none; padding: 13px 28px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: 600; margin-right: 10px; }
+    button:hover { background: #1565c0; }
+    .sonuc { display: none; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { border: 1px solid #ddd; padding: 10px 12px; text-align: left; }
+    th { background: #e3f2fd; }
+    .yesil { color: #2e7d32; font-weight: bold; }
+    .link-btn { display: inline-block; margin: 8px 8px 8px 0; padding: 8px 14px; background: #0288d1; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; }
+    #binaKutu, #ruhsatKutu, #gorselKutu { margin-top: 25px; padding: 20px; background: #f0f7ff; border-radius: 10px; }
+    .gorsel-kutu { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px; }
+    .gorsel-item { text-align: center; max-width: 280px; }
+    .gorsel-item img { max-width: 100%; border-radius: 8px; border: 1px solid #ccc; }
+    @media print {
+      body { background: white; }
+      button, .uyari, .form-group, #arsaKart, #tarlaKart { display: none !important; }
+      .sonuc { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Arsa / Tarla İş Modeli + Ruhsat + Görseller</h1>
+  <p>Windows ücretsiz • Offline • Bilgilendirme amaçlı</p>
+
+<div class="uyari" style="background:#ffebee; border-left: 6px solid #c62828; margin: 20px 0;">
+  <strong style="color:#b71c1c; font-size:16px;">ÖNEMLİ YASAL UYARI – LÜTFEN DİKKATLİCE OKUYUN</strong><br><br>
+  Bu programda yer alan <strong>tüm bilgiler, hesaplamalar, tutarlar, süreçler, bina görselleri ve öneriler</strong> yalnızca <strong>genel bilgilendirme ve fikir verme</strong> amaçlıdır.<br><br>
+  • Hiçbir şekilde resmi belge, kesin maliyet, yasal izin veya bağlayıcı tavsiye niteliği taşımaz.<br>
+  • Türkiye’de yürürlükteki mevzuat, yönetmelikler ve uygulamalar sürekli değişebilir.<br>
+  • Ruhsat, imar durumu, zemin etüdü, proje onayı, harçlar, yapı denetim ve iskan işlemleri için <strong>mutlaka</strong> ilgili Belediye, Çevre, Şehircilik ve İklim Değişikliği Bakanlığı, Tapu ve Kadastro Genel Müdürlüğü (TKGM), Tarım ve Orman Bakanlığı ile lisanslı mimar, mühendis ve ilgili resmi kurumlardan güncel ve resmi bilgi alınız.<br>
+  • Bu programdaki hiçbir içerik resmi işlemlerde kullanılamaz.<br><br>
+  <strong>Tüm sorumluluk kullanıcıya aittir.</strong> Programı kullanarak bu uyarıyı okuduğunuzu ve kabul ettiğinizi beyan etmiş sayılırsınız.
+</div>
+
+  <div class="kart">
+    <h2>1. Parsel Bilgileri</h2>
+    <div class="form-group">
+      <label>İl / İlçe / Mahalle</label>
+      <input type="text" id="konum" placeholder="Örn: Ankara / Çankaya / Kızılay">
+    </div>
+    <div class="form-group">
+      <label>Ada / Parsel</label>
+      <input type="text" id="adaParsel" placeholder="Örn: 1523 / 17">
+    </div>
+    <div class="form-group">
+      <label>Parsel Alanı (m²)</label>
+      <input type="number" id="alan" min="1">
+    </div>
+    <div class="form-group">
+      <label>Nitelik</label>
+      <select id="nitelik" onchange="nitelikDegisti()">
+        <option value="">Seçiniz...</option>
+        <option value="arsa">Arsa</option>
+        <option value="tarla">Tarla</option>
+        <option value="diger">Diğer</option>
+      </select>
+    </div>
+    <a class="link-btn" href="https://parselsorgu.tkgm.gov.tr" target="_blank">TKGM</a>
+    <a class="link-btn" href="https://www.turkiye.gov.tr" target="_blank">e-Devlet</a>
+  </div>
+
+  <div class="kart" id="arsaKart" style="display:none;">
+    <h2>2. Arsa Bilgileri</h2>
+    <div class="form-group">
+      <label>Emsal (KAKS)</label>
+      <input type="number" id="emsal" step="0.01" value="1.50">
+    </div>
+    <div class="form-group">
+      <label>Kat Adedi</label>
+      <input type="number" id="kat" min="1" max="15" value="4">
+    </div>
+    <div class="form-group">
+      <label>Yapı Sınıfı</label>
+      <select id="yapiSinifi">
+        <option value="orta">Orta</option>
+        <option value="iyi">İyi</option>
+        <option value="luks">Lüks</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="kart" id="tarlaKart" style="display:none;">
+    <h2>2. Tarla Bilgileri</h2>
+    <div class="form-group">
+      <label>Ürün</label>
+      <select id="urun">
+        <option value="bugday">Buğday / Arpa</option>
+        <option value="aycicegi">Ayçiçeği</option>
+        <option value="pamuk">Pamuk</option>
+        <option value="diger">Diğer</option>
+      </select>
+    </div>
+  </div>
+
+  <button onclick="hesapla()">Hesapla</button>
+  <button onclick="window.print()" style="background:#2e7d32;">Yazdır / PDF Kaydet</button>
+
+  <div class="kart sonuc" id="sonucAlani">
+    <div id="sonucIcerik"></div>
+
+        <!-- Görseller -->
+    <div id="gorselKutu" style="display:none;">
+      <h3>Temsili Bina Alternatifleri</h3>
+      <div class="gorsel-kutu">
+        <div class="gorsel-item">
+          <strong>1. Villa (2-3 kat)</strong><br>
+          <span style="font-size:13px;">Modern müstakil ev</span>
+        </div>
+        <div class="gorsel-item">
+          <strong>2. Apartman (4-5 kat)</strong><br>
+          <span style="font-size:13px;">Modern konut binası</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ruhsat + İskan -->
+    <div id="ruhsatKutu" style="display:none;">
+      <h3>Sıfırdan Ruhsat + İskan Süreci (2026)</h3>
+      <h4>Ruhsat Adımları</h4>
+      <ol>
+        <li>İmar Durumu Belgesi</li>
+        <li>Zemin Etüt Raporu</li>
+        <li>Aplikasyon Krokisi (LİHKAB)</li>
+        <li>Mimari + Statik + Elektrik + Mekanik Projeler</li>
+        <li>Yapı Denetim Sözleşmesi</li>
+        <li>Belediyeye başvuru → 30 gün içinde ruhsat</li>
+      </ol>
+      <h4>İskan (Yapı Kullanma İzni)</h4>
+      <p>İnşaat bitince belediyeye iskan başvurusu yapılır. Ruhsat eki projelere uygunluk kontrol edilir. İskan olmadan elektrik, su, doğalgaz aboneliği ve satış yapılamaz.</p>
+      
+      <h4>2026 Örnek Maliyet Karşılaştırması (Tahmini)</h4>
+      <table>
+        <tr><th>Kalem</th><th>Villa (2-3 kat)</th><th>4-5 Kat Apartman</th></tr>
+        <tr><td>Proje + Zemin Etüt</td><td>150-300 bin TL</td><td>250-450 bin TL</td></tr>
+        <tr><td>Ruhsat Harç + Denetim</td><td>80-180 bin TL</td><td>150-350 bin TL</td></tr>
+        <tr><td>İnşaat Maliyeti (m²)</td><td>14-22 bin TL</td><td>15-24 bin TL</td></tr>
+        <tr><td><strong>Toplam Ruhsat Öncesi</strong></td><td class="yesil">~230-480 bin TL</td><td class="yesil">~400-800 bin TL</td></tr>
+      </table>
+      <p style="font-size:13px; color:#666;">Belediyeye ve projeye göre değişir. Kesin bilgi için yerel belediyeye sorun.</p>
+    </div>
+
+        <!-- Gerçekçi Bina Görseli -->
+    <div id="binaKutu" style="display:none;">
+      <h3>Temsili Modern Apartman (4-5 Kat)</h3>
+      <div style="text-align:center; margin-top:15px;">
+        <img src="apartman.png" alt="Modern Apartman" style="max-width:100%; max-height:450px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+      </div>
+    </div>
+
+  <script>
+    function nitelikDegisti() {
+      const n = document.getElementById('nitelik').value;
+      document.getElementById('arsaKart').style.display = n === 'arsa' ? 'block' : 'none';
+      document.getElementById('tarlaKart').style.display = n === 'tarla' ? 'block' : 'none';
+    }
+
+        function binaCiz(kat) {
+      const h = 38, w = 200, totalH = 50 + kat * h + 40;
+      let s = `<svg width="320" height="${totalH}" viewBox="0 0 320 ${totalH}">`;
+      
+      // Zemin
+      s += `<rect x="20" y="${totalH-25}" width="280" height="25" fill="#7cb342"/>`;
+      
+      // Bina gövdesi
+      s += `<rect x="50" y="40" width="${w}" height="${kat*h}" fill="#e8eaf6" stroke="#455a64" stroke-width="2"/>`;
+      
+      // Kat çizgileri ve pencereler + balkon
+      for(let i=0; i<kat; i++){
+        let y = 40 + i*h;
+        if(i > 0) s += `<line x1="50" y1="${y}" x2="${50+w}" y2="${y}" stroke="#90a4ae" stroke-width="1"/>`;
+        
+        // Pencereler
+        for(let p=0; p<4; p++){
+          s += `<rect x="${65 + p*45}" y="${y+8}" width="32" height="22" fill="#bbdefb" stroke="#37474f" stroke-width="1"/>`;
+        }
+        
+        // Balkon çizgisi
+        s += `<rect x="48" y="${y+h-6}" width="${w+4}" height="4" fill="#cfd8dc"/>`;
+      }
+      
+      // Düz modern çatı
+      s += `<rect x="45" y="30" width="${w+10}" height="12" fill="#546e7a"/>`;
+      
+      // Kapı
+      s += `<rect x="130" y="${40 + kat*h - 32}" width="40" height="32" fill="#5d4037"/>`;
+      
+      s += `</svg>`;
+      return s;
+    }
+
+    function hesapla() {
+      const konum = document.getElementById('konum').value;
+      const ada = document.getElementById('adaParsel').value;
+      const alan = parseFloat(document.getElementById('alan').value) || 0;
+      const n = document.getElementById('nitelik').value;
+      if(!konum || !ada || !alan || !n){ alert('Zorunlu alanları doldurun'); return; }
+
+      let html = `<p><strong>${konum}</strong> | Ada/Parsel: ${ada} | Alan: ${alan.toLocaleString('tr-TR')} m² | ${n.toUpperCase()}</p>`;
+      let kat = 4;
+
+      if(n === 'arsa'){
+        const emsal = parseFloat(document.getElementById('emsal').value)||1.5;
+        kat = parseInt(document.getElementById('kat').value)||4;
+        const sinif = document.getElementById('yapiSinifi').value;
+        let birim = sinif==='iyi'?18500 : sinif==='luks'?26000 : 14500;
+        const insaat = Math.round(alan * emsal);
+        html += `<h3 class="yesil">Yapılaşma Tahmini</h3>
+        <table>
+          <tr><th>Emsal</th><td>${emsal}</td></tr>
+          <tr><th>İnşaat Alanı</th><td>${insaat.toLocaleString('tr-TR')} m²</td></tr>
+          <tr><th>Kat</th><td>${kat}</td></tr>
+          <tr><th>Tahmini Maliyet</th><td class="yesil">${(insaat*birim).toLocaleString('tr-TR')} TL</td></tr>
+        </table>`;
+      } else if(n === 'tarla'){
+        const urun = document.getElementById('urun').value;
+        const dekar = alan/1000;
+        let destek = urun==='bugday'?403 : urun==='aycicegi'?465 : urun==='pamuk'?697 : 310;
+        html += `<h3 class="yesil">Tarım Tahmini</h3>
+        <p>${dekar.toFixed(2)} dekar | ${urun} | Yıllık destek ≈ ${(dekar*destek).toLocaleString('tr-TR')} TL</p>`;
+      }
+
+      document.getElementById('sonucIcerik').innerHTML = html;
+      document.getElementById('sonucAlani').style.display = 'block';
+
+      if(n === 'arsa'){
+        document.getElementById('binaKutu').style.display = 'block';
+        document.getElementById('ruhsatKutu').style.display = 'block';
+        document.getElementById('gorselKutu').style.display = 'block';
+      } else {
+        document.getElementById('binaKutu').style.display = 'none';
+        document.getElementById('ruhsatKutu').style.display = 'none';
+        document.getElementById('gorselKutu').style.display = 'none';
+      }
+      document.getElementById('sonucAlani').scrollIntoView({behavior:'smooth'});
+    }
+  </script>
+</body>
+</html>
+
+
