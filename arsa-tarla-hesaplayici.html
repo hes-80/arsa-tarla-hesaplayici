@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q9NTKFWW78"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q9NTKFWW78');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arsa / Tarla + Ruhsat + Görseller + İskan</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Segoe UI, system-ui, sans-serif; max-width: 980px; margin: 0 auto; padding: 20px; background: #f5f7fa; color: #222; }
+    h1 { color: #0d47a1; margin-bottom: 5px; }
+    .kart { background: white; border-radius: 10px; padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; }
+    input, select { width: 100%; padding: 11px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; }
+    button { background: #1976d2; color: white; border: none; padding: 13px 28px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: 600; margin-right: 10px; margin-bottom: 8px; }
+    button:hover { background: #1565c0; }
+    .sonuc { display: none; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { border: 1px solid #ddd; padding: 10px 12px; text-align: left; }
+    th { background: #e3f2fd; }
+    .yesil { color: #2e7d32; font-weight: bold; }
+    .link-btn { display: inline-block; margin: 8px 8px 8px 0; padding: 8px 14px; background: #0288d1; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; }
+    #binaKutu, #ruhsatKutu, #gorselKutu { margin-top: 25px; padding: 20px; background: #f0f7ff; border-radius: 10px; }
+    .gorsel-kutu { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px; }
+    .gorsel-item { text-align: center; max-width: 280px; }
+    .gorsel-item img { max-width: 100%; border-radius: 8px; border: 1px solid #ccc; }
+    #haritaKutu { margin-top: 18px; }
+    #haritaKutu iframe { width: 100%; height: 320px; border: 0; border-radius: 8px; }
+    #haritaKutu p, .not { font-size: 13px; color: #666; }
+    #gecmisListe li { margin-bottom: 8px; }
+    @media print {
+      body { background: white; }
+      button, .uyari, .form-group, #arsaKart, #tarlaKart, #gecmisKart { display: none !important; }
+      .sonuc { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Arsa / Tarla İş Modeli + Ruhsat + Görseller</h1>
+  <p>Windows ücretsiz • Offline • Bilgilendirme amaçlı</p>
+
+<div class="uyari" style="background:#ffebee; border-left: 6px solid #c62828; margin: 20px 0;">
+  <strong style="color:#b71c1c; font-size:16px;">ÖNEMLİ YASAL UYARI – LÜTFEN DİKKATLİCE OKUYUN</strong><br><br>
+  Bu programda yer alan <strong>tüm bilgiler, hesaplamalar, tutarlar, süreçler, bina görselleri ve öneriler</strong> yalnızca <strong>genel bilgilendirme ve fikir verme</strong> amaçlıdır.<br><br>
+  • Hiçbir şekilde resmi belge, kesin maliyet, yasal izin veya bağlayıcı tavsiye niteliği taşımaz.<br>
+  • Türkiye’de yürürlükteki mevzuat, yönetmelikler ve uygulamalar sürekli değişebilir.<br>
+  • Ruhsat, imar durumu, zemin etüdü, proje onayı, harçlar, yapı denetim ve iskan işlemleri için <strong>mutlaka</strong> ilgili Belediye, Çevre, Şehircilik ve İklim Değişikliği Bakanlığı, Tapu ve Kadastro Genel Müdürlüğü (TKGM), Tarım ve Orman Bakanlığı ile lisanslı mimar, mühendis ve ilgili resmi kurumlardan güncel ve resmi bilgi alınız.<br>
+  • Harita, yazılan konuma göre temsili OpenStreetMap aramasıdır; ada/parsel sınırı değildir. Aynı adlı mahalle başka ilde de olabilir.<br>
+  • Maliyet kırılımı (kaba / ince / tesisat) sektör ortalamasıdır; keşif veya ihale değeri değildir.<br>
+  • Kayıtlar yalnızca bu tarayıcıda (localStorage) tutulur.<br>
+  • Bu programdaki hiçbir içerik resmi işlemlerde kullanılamaz.<br><br>
+  <strong>Tüm sorumluluk kullanıcıya aittir.</strong> Programı kullanarak bu uyarıyı okuduğunuzu ve kabul ettiğinizi beyan etmiş sayılırsınız.
+</div>
+
+  <div class="kart">
+    <h2>1. Parsel Bilgileri</h2>
+    <div class="form-group">
+      <label>İl / İlçe / Mahalle</label>
+      <input type="text" id="konum" placeholder="Örn: Kartaltepe, Bahçelievler, İstanbul">
+    </div>
+    <div class="form-group">
+      <label>Ada / Parsel</label>
+      <input type="text" id="adaParsel" placeholder="Örn: 1523 / 17">
+    </div>
+    <div class="form-group">
+      <label>Parsel Alanı (m²)</label>
+      <input type="number" id="alan" min="1">
+    </div>
+    <div class="form-group">
+      <label>Nitelik</label>
+      <select id="nitelik" onchange="nitelikDegisti()">
+        <option value="">Seçiniz...</option>
+        <option value="arsa">Arsa</option>
+        <option value="tarla">Tarla</option>
+        <option value="diger">Diğer</option>
+      </select>
+    </div>
+    <a class="link-btn" href="https://parselsorgu.tkgm.gov.tr" target="_blank" rel="noopener">TKGM</a>
+    <a class="link-btn" href="https://www.turkiye.gov.tr" target="_blank" rel="noopener">e-Devlet</a>
+  </div>
+
+  <div class="kart" id="arsaKart" style="display:none;">
+    <h2>2. Arsa Bilgileri</h2>
+    <div class="form-group">
+      <label>Emsal (KAKS)</label>
+      <input type="number" id="emsal" step="0.01" value="1.50">
+    </div>
+    <div class="form-group">
+      <label>Kat Adedi</label>
+      <input type="number" id="kat" min="1" max="15" value="4">
+    </div>
+    <div class="form-group">
+      <label>Yapı Sınıfı</label>
+      <select id="yapiSinifi">
+        <option value="orta">Orta</option>
+        <option value="iyi">İyi</option>
+        <option value="luks">Lüks</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="kart" id="tarlaKart" style="display:none;">
+    <h2>2. Tarla Bilgileri</h2>
+    <div class="form-group">
+      <label>Ürün</label>
+      <select id="urun">
+        <option value="bugday">Buğday / Arpa</option>
+        <option value="aycicegi">Ayçiçeği</option>
+        <option value="pamuk">Pamuk</option>
+        <option value="diger">Diğer</option>
+      </select>
+    </div>
+  </div>
+
+  <button type="button" onclick="hesapla()">Hesapla</button>
+  <button type="button" onclick="window.print()" style="background:#2e7d32;">Yazdır / PDF Kaydet</button>
+  <button type="button" onclick="gecmisiTemizle()" style="background:#c62828;">Kayıtlı hesapları sil</button>
+
+  <div class="kart" id="gecmisKart">
+    <h2>Kayıtlı hesaplar (bu tarayıcı)</h2>
+    <div id="gecmisListe"><p class="not">Henüz kayıt yok.</p></div>
+  </div>
+
+  <div class="kart sonuc" id="sonucAlani">
+    <div id="sonucIcerik"></div>
+    <div id="haritaKutu" style="display:none;">
+      <h3>Temsili konum haritası</h3>
+      <p>Ada/parsel sınırını göstermez. Konumu Mahalle, İlçe, İl yazın.</p>
+      <div id="haritaFrame"></div>
+      <p>Harita: © OpenStreetMap katkıda bulunanları ·
+        <a id="haritaLink" href="https://www.openstreetmap.org" target="_blank" rel="noopener">Büyük harita</a>
+      </p>
+    </div>
+    <div id="gorselKutu" style="display:none;">
+      <h3>Temsili Bina Alternatifleri</h3>
+      <div class="gorsel-kutu">
+        <div class="gorsel-item"><strong>1. Villa (2-3 kat)</strong><br><span style="font-size:13px;">Modern müstakil ev</span></div>
+        <div class="gorsel-item"><strong>2. Apartman (4-5 kat)</strong><br><span style="font-size:13px;">Modern konut binası</span></div>
+      </div>
+    </div>
+
+    <div id="ruhsatKutu" style="display:none;">
+      <h3>Sıfırdan Ruhsat + İskan Süreci (2026)</h3>
+      <h4>Ruhsat Adımları</h4>
+      <ol>
+        <li>İmar Durumu Belgesi</li>
+        <li>Zemin Etüt Raporu</li>
+        <li>Aplikasyon Krokisi (LİHKAB)</li>
+        <li>Mimari + Statik + Elektrik + Mekanik Projeler</li>
+        <li>Yapı Denetim Sözleşmesi</li>
+        <li>Belediyeye başvuru → 30 gün içinde ruhsat</li>
+      </ol>
+      <h4>İskan (Yapı Kullanma İzni)</h4>
+      <p>İnşaat bitince belediyeye iskan başvurusu yapılır. Ruhsat eki projelere uygunluk kontrol edilir. İskan olmadan elektrik, su, doğalgaz aboneliği ve satış yapılamaz.</p>
+      <h4>2026 Örnek Maliyet Karşılaştırması (Tahmini)</h4>
+      <table>
+        <tr><th>Kalem</th><th>Villa (2-3 kat)</th><th>4-5 Kat Apartman</th></tr>
+        <tr><td>Proje + Zemin Etüt</td><td>150-300 bin TL</td><td>250-450 bin TL</td></tr>
+        <tr><td>Ruhsat Harç + Denetim</td><td>80-180 bin TL</td><td>150-350 bin TL</td></tr>
+        <tr><td>İnşaat Maliyeti (m²)</td><td>14-22 bin TL</td><td>15-24 bin TL</td></tr>
+        <tr><td><strong>Toplam Ruhsat Öncesi</strong></td><td class="yesil">~230-480 bin TL</td><td class="yesil">~400-800 bin TL</td></tr>
+      </table>
+      <p class="not">Belediyeye ve projeye göre değişir. Kesin bilgi için yerel belediyeye sorun.</p>
+    </div>
+
+    <div id="binaKutu" style="display:none;">
+      <h3>Temsili Modern Apartman (4-5 Kat)</h3>
+      <div style="text-align:center; margin-top:15px;">
+        <img src="apartman.png" alt="Modern Apartman" style="max-width:100%; max-height:450px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const GECMIS_ANAHTAR = 'arsaTarlaGecmis_v1';
+    function para(n) { return Math.round(n).toLocaleString('tr-TR'); }
+    function nitelikDegisti() {
+      const n = document.getElementById('nitelik').value;
+      document.getElementById('arsaKart').style.display = n === 'arsa' ? 'block' : 'none';
+      document.getElementById('tarlaKart').style.display = n === 'tarla' ? 'block' : 'none';
+    }
+    function gecmisiOku() {
+      try { return JSON.parse(localStorage.getItem(GECMIS_ANAHTAR) || '[]'); } catch (e) { return []; }
+    }
+    function gecmisiYaz(liste) { localStorage.setItem(GECMIS_ANAHTAR, JSON.stringify(liste.slice(0, 20))); }
+    function gecmisiCiz() {
+      const liste = gecmisiOku();
+      const kutu = document.getElementById('gecmisListe');
+      if (!liste.length) { kutu.innerHTML = '<p class="not">Henüz kayıt yok.</p>'; return; }
+      let s = '<ul>';
+      liste.forEach(function (k, i) {
+        s += '<li><strong>' + k.zaman + '</strong> — ' + k.ozet +
+          ' <button type="button" style="padding:6px 10px;font-size:13px;" onclick="kayitYukle(' + i + ')">Yükle</button></li>';
+      });
+      kutu.innerHTML = s + '</ul>';
+    }
+    function kayitYukle(i) {
+      const k = gecmisiOku()[i];
+      if (!k) return;
+      document.getElementById('konum').value = k.konum;
+      document.getElementById('adaParsel').value = k.ada;
+      document.getElementById('alan').value = k.alan;
+      document.getElementById('nitelik').value = k.nitelik;
+      nitelikDegisti();
+      if (k.nitelik === 'arsa') {
+        document.getElementById('emsal').value = k.emsal;
+        document.getElementById('kat').value = k.kat;
+        document.getElementById('yapiSinifi').value = k.sinif;
+      }
+      if (k.nitelik === 'tarla') document.getElementById('urun').value = k.urun;
+      hesapla(true);
+    }
+    function gecmisiTemizle() {
+      if (!confirm('Kayıtlar silinsin mi?')) return;
+      localStorage.removeItem(GECMIS_ANAHTAR);
+      gecmisiCiz();
+    }
+    function kaydetHesap(kayit) {
+      const liste = gecmisiOku();
+      liste.unshift(kayit);
+      gecmisiYaz(liste);
+      gecmisiCiz();
+    }
+    function haritaGoster(konum) {
+      const kutu = document.getElementById('haritaKutu');
+      const frame = document.getElementById('haritaFrame');
+      const link = document.getElementById('haritaLink');
+      kutu.style.display = 'block';
+      frame.innerHTML = '<p>Harita aranıyor…</p>';
+      const temiz = String(konum).replace(/\s*\/\s*/g, ', ').replace(/\s+/g, ' ').trim();
+      const parcalar = temiz.split(/\s*,\s*/).filter(Boolean);
+      const ters = parcalar.slice().reverse().join(', ');
+      const denemeler = [];
+      function ekle(q) { if (q && denemeler.indexOf(q) === -1) denemeler.push(q); }
+      ekle(temiz);
+      ekle(ters);
+      if (parcalar.length >= 2) ekle(parcalar[parcalar.length - 1] + ', ' + parcalar[parcalar.length - 2]);
+      if (parcalar.length >= 3) ekle(parcalar[0] + ', ' + parcalar[parcalar.length - 1]);
+      const osmAra = 'https://www.openstreetmap.org/search?query=' + encodeURIComponent(temiz);
+      link.href = osmAra;
+      function dene(i) {
+        if (i >= denemeler.length) {
+          frame.innerHTML = '<p>Otomatik iğne konamadı. Mahalle, İlçe, İl yazın veya <a href="' + osmAra + '" target="_blank" rel="noopener">OSM’de arayın</a>.</p>';
+          return;
+        }
+        const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=tr&q=' + encodeURIComponent(denemeler[i]);
+        fetch(url, { headers: { 'Accept': 'application/json' } })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (!data || !data[0]) { setTimeout(function () { dene(i + 1); }, 900); return; }
+            const lat = parseFloat(data[0].lat);
+            const lon = parseFloat(data[0].lon);
+            const d = 0.012;
+            const bbox = (lon - d) + ',' + (lat - d) + ',' + (lon + d) + ',' + (lat + d);
+            const embed = 'https://www.openstreetmap.org/export/embed.html?bbox=' + encodeURIComponent(bbox) + '&layer=mapnik&marker=' + lat + ',' + lon;
+            link.href = 'https://www.openstreetmap.org/?mlat=' + lat + '&mlon=' + lon + '#map=16/' + lat + '/' + lon;
+            frame.innerHTML = '<iframe src="' + embed + '" title="OpenStreetMap temsili konum"></iframe>';
+          })
+          .catch(function () { setTimeout(function () { dene(i + 1); }, 900); });
+      }
+      dene(0);
+    }
+    function hesapla(yukleme) {
+      const konum = document.getElementById('konum').value;
+      const ada = document.getElementById('adaParsel').value;
+      const alan = parseFloat(document.getElementById('alan').value) || 0;
+      const n = document.getElementById('nitelik').value;
+      if (!konum || !ada || !alan || !n) { alert('Zorunlu alanları doldurun'); return; }
+      let html = `<p><strong>${konum}</strong> | Ada/Parsel: ${ada} | Alan: ${alan.toLocaleString('tr-TR')} m² | ${n.toUpperCase()}</p>`;
+      let ozet = konum + ' / ' + ada + ' / ' + n;
+      const kayit = { zaman: new Date().toLocaleString('tr-TR'), konum: konum, ada: ada, alan: alan, nitelik: n, ozet: ozet };
+      if (n === 'arsa') {
+        const emsal = parseFloat(document.getElementById('emsal').value) || 1.5;
+        const kat = parseInt(document.getElementById('kat').value, 10) || 4;
+        const sinif = document.getElementById('yapiSinifi').value;
+        const birim = sinif === 'iyi' ? 21050 : sinif === 'luks' ? 26450 : 19800;
+        const insaat = Math.round(alan * emsal);
+        const toplam = insaat * birim;
+        const kaba = Math.round(toplam * 0.55);
+        const ince = Math.round(toplam * 0.30);
+        const tesisat = toplam - kaba - ince;
+        kayit.emsal = emsal; kayit.kat = kat; kayit.sinif = sinif;
+        kayit.ozet = ozet + ' | ' + para(toplam) + ' TL';
+        html += `<h3 class="yesil">Yapılaşma Tahmini</h3>
+        <table>
+          <tr><th>Emsal</th><td>${emsal}</td></tr>
+          <tr><th>İnşaat Alanı</th><td>${insaat.toLocaleString('tr-TR')} m²</td></tr>
+          <tr><th>Kat</th><td>${kat}</td></tr>
+          <tr><th>m² birim</th><td>${para(birim)} TL</td></tr>
+          <tr><th>Kaba inşaat (≈ %55)</th><td>${para(kaba)} TL</td></tr>
+          <tr><th>İnce iş (≈ %30)</th><td>${para(ince)} TL</td></tr>
+          <tr><th>Mekanik + elektrik (≈ %15)</th><td>${para(tesisat)} TL</td></tr>
+          <tr><th>Tahmini toplam</th><td class="yesil">${para(toplam)} TL</td></tr>
+        </table>
+        <p class="not">Kırılım yaklaşık paydır. KDV, arsa ve altyapı hariç.
+          <a href="https://www.resmigazete.gov.tr/eskiler/2026/02/20260203-4.htm" target="_blank" rel="noopener">Resmî Gazete 2026 tebliği</a></p>`;
+      } else if (n === 'tarla') {
+        const urun = document.getElementById('urun').value;
+        const dekar = alan / 1000;
+        const destek = urun === 'bugday' ? 403 : urun === 'aycicegi' ? 465 : urun === 'pamuk' ? 697 : 310;
+        const tutar = dekar * destek;
+        kayit.urun = urun;
+        kayit.ozet = ozet + ' | ' + tutar.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' TL';
+        html += `<h3 class="yesil">Tarım Tahmini</h3>
+        <p>${dekar.toFixed(2)} dekar | ${urun} | Yıllık destek ≈ ${tutar.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL</p>
+        <p class="not">2026 temel destek katsayısı referansıdır. Teyit: Tarım ve Orman Bakanlığı.</p>`;
+      }
+      document.getElementById('sonucIcerik').innerHTML = html;
+      document.getElementById('sonucAlani').style.display = 'block';
+      const arsaMi = n === 'arsa';
+      document.getElementById('binaKutu').style.display = arsaMi ? 'block' : 'none';
+      document.getElementById('ruhsatKutu').style.display = arsaMi ? 'block' : 'none';
+      document.getElementById('gorselKutu').style.display = arsaMi ? 'block' : 'none';
+      if (!yukleme) kaydetHesap(kayit);
+      haritaGoster(konum);
+      document.getElementById('sonucAlani').scrollIntoView({ behavior: 'smooth' });
+    }
+    gecmisiCiz();
+  </script>
+</body>
+</html>
