@@ -17,14 +17,29 @@
     h1 { color: #0d47a1; margin-bottom: 5px; text-align: center; }
     body > p:first-of-type { text-align: center; }
     .uyari {
-      background: #fff5f5; border: 1px solid #ffcdd2; border-top: 4px solid #c62828;
-      padding: 18px 20px 16px; margin: 18px 0 22px; border-radius: 10px;
-      font-size: 14.5px; line-height: 1.55; color: #4a1515; text-align: center;
+      background: #fff5f5;
+      border: 1px solid #ffcdd2;
+      border-top: 4px solid #c62828;
+      padding: 18px 22px 16px;
+      margin: 18px 0 22px;
+      border-radius: 10px;
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: #4a1515;
+      text-align: left;
       box-shadow: 0 1px 4px rgba(198, 40, 40, 0.08);
     }
+    .uyari .uyari-baslik {
+      display: block;
+      text-align: center;
+      color: #b71c1c;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
     .uyari strong { color: #b71c1c; }
-    .uyari ul { text-align: left; display: inline-block; margin: 10px auto 12px; padding-left: 18px; }
+    .uyari ul { margin: 10px 0 12px; padding-left: 22px; }
     .uyari li { margin-bottom: 6px; }
+    .uyari .kapanis { margin-top: 8px; }
     .kart { background: white; border-radius: 10px; padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
     .form-group { margin-bottom: 16px; }
     label { display: block; font-weight: 600; margin-bottom: 6px; }
@@ -57,8 +72,8 @@
   <p>Windows ücretsiz • Offline • Bilgilendirme amaçlı</p>
 
 <div class="uyari">
-  <strong style="font-size:16px;">ÖNEMLİ YASAL UYARI – LÜTFEN DİKKATLİCE OKUYUN</strong><br><br>
-  Bu programda yer alan <strong>tüm bilgiler, hesaplamalar, tutarlar, süreçler, bina görselleri ve öneriler</strong> yalnızca <strong>genel bilgilendirme ve fikir verme</strong> amaçlıdır.
+  <strong class="uyari-baslik">ÖNEMLİ YASAL UYARI – LÜTFEN DİKKATLİCE OKUYUN</strong>
+  <p>Bu programda yer alan <strong>tüm bilgiler, hesaplamalar, tutarlar, süreçler, bina görselleri ve öneriler</strong> yalnızca <strong>genel bilgilendirme ve fikir verme</strong> amaçlıdır.</p>
   <ul>
     <li>Resmi belge, kesin maliyet, yasal izin veya bağlayıcı tavsiye değildir.</li>
     <li>Arsa değeri, senin girdiğin TL/m² × parsel alanıdır. Belediye rayiç / e-Devlet / lisanslı değerleme ile teyit edin.</li>
@@ -67,7 +82,7 @@
     <li>Harita temsili OpenStreetMap aramasıdır; ada/parsel sınırı değildir.</li>
     <li>Kayıtlar yalnızca bu tarayıcıda tutulur.</li>
   </ul>
-  <strong>Tüm sorumluluk kullanıcıya aittir.</strong>
+  <p class="kapanis"><strong>Tüm sorumluluk kullanıcıya aittir.</strong> Programı kullanarak bu uyarıyı okuduğunuzu ve kabul ettiğinizi beyan etmiş sayılırsınız.</p>
 </div>
 
   <div class="kart">
