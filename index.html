@@ -79,7 +79,7 @@
     <li>Arsa değeri, senin girdiğin TL/m² × parsel alanıdır. Belediye rayiç / e-Devlet / lisanslı değerleme ile teyit edin.</li>
     <li>Hafriyat hacmi ve tutarı zemin, iksa, döküm mesafesi ve belediye tarifesine göre değişir; keşif değildir.</li>
     <li>Ruhsat ve iskan için belediye, ÇŞİDB, TKGM ve lisanslı meslek mensuplarından resmi bilgi alın.</li>
-    <li>Harita temsili konum aramasıdır; ada/parsel sınırı değildir.</li>
+    <li>Harita temsili konum aramasıdır; resmi ada/parsel sınırı değildir.</li>
     <li>Kayıtlar yalnızca bu tarayıcıda tutulur.</li>
   </ul>
   <p class="kapanis"><strong>Tüm sorumluluk kullanıcıya aittir.</strong> Programı kullanarak bu uyarıyı okuduğunuzu ve kabul ettiğinizi beyan etmiş sayılırsınız.</p>
@@ -89,7 +89,7 @@
     <h2>1. Parsel Bilgileri</h2>
     <div class="form-group">
       <label>İl / İlçe / Mahalle</label>
-      <input type="text" id="konum" placeholder="Örn: Kartaltepe, Bahçelievler, İstanbul">
+      <input type="text" id="konum" placeholder="Örn: Kartaltepe, Bakırköy, İstanbul">
     </div>
     <div class="form-group">
       <label>Ada / Parsel</label>
@@ -174,6 +174,8 @@
       <div id="haritaFrame"></div>
       <p>
         <a id="haritaLink" href="https://www.openstreetmap.org" target="_blank" rel="noopener">Büyük harita (OSM)</a>
+        ·
+        <a href="https://parselsorgu.tkgm.gov.tr" target="_blank" rel="noopener">TKGM Parsel Sorgu</a>
       </p>
     </div>
     <div id="gorselKutu" style="display:none;">
@@ -273,24 +275,28 @@
       gecmisiCiz();
     }
 
-    function haritaGoster(konum) {
+    function haritaGoster(konum, ada) {
       const kutu = document.getElementById('haritaKutu');
       const frame = document.getElementById('haritaFrame');
       const link = document.getElementById('haritaLink');
       kutu.style.display = 'block';
 
-      const temiz = String(konum || 'Türkiye')
+      const yer = String(konum || 'Türkiye')
         .replace(/\s*\/\s*/g, ', ')
         .replace(/\s+/g, ' ')
         .trim();
+      const parsel = String(ada || '').replace(/\s+/g, ' ').trim();
+      const sorgu = parsel
+        ? yer + ', ada ' + parsel.replace('/', ' parsel ') + ', Türkiye'
+        : yer + ', Türkiye';
 
-      const osmAra = 'https://www.openstreetmap.org/search?query=' + encodeURIComponent(temiz);
-      const gmap = 'https://maps.google.com/maps?q=' + encodeURIComponent(temiz) + '&hl=tr&z=16&output=embed';
+      const osmAra = 'https://www.openstreetmap.org/search?query=' + encodeURIComponent(yer);
+      const gmap = 'https://maps.google.com/maps?q=' + encodeURIComponent(sorgu) + '&hl=tr&z=18&output=embed';
       link.href = osmAra;
 
       frame.innerHTML =
         '<iframe src="' + gmap + '" title="Konum haritası"></iframe>' +
-        '<p>Temsili konum. Ada/parsel sınırı değildir.</p>';
+        '<p>Temsili konum (mahalle + ada/parsel araması). Resmi parsel sınırı değildir.</p>';
     }
 
     function hesapla(yukleme) {
@@ -388,7 +394,7 @@
       document.getElementById('ruhsatKutu').style.display = arsaMi ? 'block' : 'none';
       document.getElementById('gorselKutu').style.display = arsaMi ? 'block' : 'none';
       if (!yukleme) kaydetHesap(kayit);
-      haritaGoster(konum);
+      haritaGoster(konum, ada);
       document.getElementById('sonucAlani').scrollIntoView({ behavior: 'smooth' });
     }
     gecmisiCiz();
